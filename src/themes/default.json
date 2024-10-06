@@ -1,0 +1,39 @@
+{
+    "typography": {
+        "color": {
+            "primary": "#091B29",
+            "secondary": "#3E3E3E",
+            "tertiary": "#98A0AC",
+            "white": "#FFFFFF",
+            "activeText": "#51AAFC",
+            "menuText": "#5F769A"
+        }
+    },
+    "palette": {
+        "warning": {
+            "main": "#F9A602",
+            "light": "#FFFAF0"
+        },
+        "primary": {
+            "main": "#1170C3",
+            "light": "#EEF6FF"
+        },
+        "border":{
+            "secondary": "#E3E3E3",
+            "tertiary": "#EFEFEF"
+        },
+        "background": {
+            "activebg": "#F2F9FF",
+            "white": "#fff",
+            "tertiary": "#F7F7F7"
+        },
+        "error": {
+            "main": "#FF6363",
+            "light": "#FFF6F6"
+        },
+        "success": {
+            "main": "#1CCE66",
+            "light": "#ECFFF4"
+        }
+    }
+}
