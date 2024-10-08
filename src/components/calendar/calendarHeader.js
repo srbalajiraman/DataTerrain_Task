@@ -8,8 +8,12 @@ import { format } from 'date-fns';
 
 export const CalendarHeader = ({
     weekdates,
-    weeknext = () => false,
-    weekprev = () => false
+    next = () => false,
+    prev = () => false,
+    type = "Week",
+    handleChangeCalType = () => false,
+    month = "",
+    year = "2024"
 }) => {
     const classes = CalendarHeaderStyle()
     const theme = useTheme()
@@ -21,16 +25,21 @@ export const CalendarHeader = ({
                 <Grid item xs={12} sm={2} md={3} lg={2}>
                     <Stack direction={"row"} spacing={3} className={classes.calBtn}>
                         <Stack direction={"row"} alignItems={"center"} spacing={1}>
-                            <IconButton className={classes.iconBtn} onClick={weekprev}><ArrowBackIosOutlinedIcon /></IconButton>
-                            <IconButton className={classes.iconBtn} onClick={weeknext}><ArrowForwardIosOutlinedIcon /></IconButton>
+                            <IconButton className={classes.iconBtn} onClick={prev}><ArrowBackIosOutlinedIcon /></IconButton>
+                            <IconButton className={classes.iconBtn} onClick={next}><ArrowForwardIosOutlinedIcon /></IconButton>
                         </Stack>
                         <Box className={classes.dateBox}>
-                            <Typography className={classes.dateText}>{format(weekdates?.startDate, "dd")}</Typography>
+                            <Typography className={classes.dateText}>{format(new Date(), "dd")}</Typography>
                         </Box>
                     </Stack>
                 </Grid>
                 <Grid item xs={12} sm={10} md={6} lg={8}>
-                    <Typography className={classes.dateDurationText}>{format(weekdates?.startDate, "dd MMMM")} to {format(weekdates?.endDate, "dd MMMM")}, {format(weekdates?.startDate, "yyyy")}</Typography>
+                    <Typography className={classes.dateDurationText}>
+                        {type === "Week" && `${format(weekdates?.startDate, "dd MMMM")} to ${format(weekdates?.endDate, "dd MMMM")}, ${format(weekdates?.startDate, "yyyy")}`}
+                        {type === "Day" && format(weekdates?.startDate, "dd MMMM yyyy")}
+                        {type === "Month" && format(month, "MMMM yyyy")}
+                        {type === "Year" && year}
+                    </Typography>
                 </Grid>
                 <Grid item xs={12} sm={12} md={3} lg={2} display={"flex"} justifyContent={"end"}>
                     {
@@ -39,7 +48,8 @@ export const CalendarHeader = ({
                                 {
                                     calendarType?.map((e, i) => {
                                         return (
-                                            <Typography className={i === 1 ? classes.selectedCalendarTypeText : classes.calendarTypeText}>{e}</Typography>
+                                            <Typography className={type === e ? classes.selectedCalendarTypeText : classes.calendarTypeText}
+                                                onClick={() => handleChangeCalType(e)}>{e}</Typography>
                                         )
                                     })
                                 }
@@ -48,40 +58,17 @@ export const CalendarHeader = ({
                     }
                     {
                         !isXS && <Stack direction={"row"} alignItems={"center"} spacing={2}>
-                        {
-                            calendarType?.map((e, i) => {
-                                return (
-                                    <Typography className={i === 1 ? classes.selectedCalendarTypeText : classes.calendarTypeText}>{e}</Typography>
-                                )
-                            })
-                        }
-                    </Stack>
+                            {
+                                calendarType?.map((e, i) => {
+                                    return (
+                                        <Typography className={i === 1 ? classes.selectedCalendarTypeText : classes.calendarTypeText}>{e}</Typography>
+                                    )
+                                })
+                            }
+                        </Stack>
                     }
                 </Grid>
             </Grid>
-            {/* <Stack direction={"row"} justifyContent={"space-between"} alignItems={"center"}>
-                <Stack direction={"row"} spacing={3}>
-                    <Stack direction={"row"} alignItems={"center"} spacing={1}>
-                        <IconButton className={classes.iconBtn} onClick={weekprev}><ArrowBackIosOutlinedIcon /></IconButton>
-                        <IconButton className={classes.iconBtn} onClick={weeknext}><ArrowForwardIosOutlinedIcon /></IconButton>
-                    </Stack>
-                    <Box className={classes.dateBox}>
-                        <Typography className={classes.dateText}>{format(weekdates?.startDate, "dd")}</Typography>
-                    </Box>
-                </Stack>
-
-                <Typography className={classes.dateDurationText}>{format(weekdates?.startDate, "dd MMMM")} to {format(weekdates?.endDate, "dd MMMM")}, {format(weekdates?.startDate, "yyyy")}</Typography>
-
-                <Stack direction={"row"} alignItems={"center"} spacing={2}>
-                    {
-                        calendarType?.map((e, i) => {
-                            return (
-                                <Typography className={i === 1 ? classes.selectedCalendarTypeText : classes.calendarTypeText}>{e}</Typography>
-                            )
-                        })
-                    }
-                </Stack>
-            </Stack> */}
         </>
     )
 }

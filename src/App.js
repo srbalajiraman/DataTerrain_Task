@@ -1,3 +1,4 @@
+import React from 'react';
 import './App.css';
 import AppTheme from './App.theme';
 import { Home } from './screen';
@@ -5,7 +6,9 @@ import { Home } from './screen';
 const App = () => {
   return (
     <AppTheme>
-      <Home />
+      <React.StrictMode>
+        <Home />
+      </React.StrictMode>
     </AppTheme>
   )
 }

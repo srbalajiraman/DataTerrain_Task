@@ -1,13 +1,14 @@
 import { makeStyles } from "@mui/styles";
-import { Bold, Regular, SemiBold } from "../../utils/constants";
+import { Regular, SemiBold } from "../../utils/constants";
 
-export const CalendarStyle = makeStyles((theme) => ({
+export const dayCalendarstyle = makeStyles((theme) => ({
     table_container: {
         maxHeight: `calc(100vh - 365px)`,
     },
     headCell: {
-        width: "120px",
-        borderRight: "1.5px solid #F1F3F3"
+        height: "40px",
+        borderRight: "1.5px solid #F1F3F3",
+        textAlign: "center"
     },
     timeCol: {
         position: "relative",
@@ -107,60 +108,5 @@ export const CalendarStyle = makeStyles((theme) => ({
     },
     selectedEventCard: {
         background: theme.palette.primary.light
-    }
-}))
-
-export const CalendarHeaderStyle = makeStyles((theme) => ({
-    iconBtn: {
-        border: `1px solid ${theme.palette.primary.main}`,
-        borderRadius: "8px"
-    },
-    dateBox: {
-        padding: "4px 20px",
-        borderRadius: "4px",
-        boxShadow: "0px 4px 10px #00000021",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-    },
-    dateText: {
-        fontSize: "20px",
-        color: theme.palette.primary.main,
-        fontFamily: Bold,
-    },
-    dateDurationText: {
-        fontSize: "20px",
-        color: theme.typography.color.primary,
-        fontFamily: SemiBold,
-        textAlign: "center",
-        width: "100%"
-    },
-    calendarTypeText: {
-        fontSize: "14px",
-        color: theme.typography.color.primary,
-        fontFamily: Regular,
-        cursor: "pointer"
-    },
-    selectedCalendarTypeText: {
-        fontSize: "14px",
-        color: theme.typography.color.primary,
-        fontFamily: Regular,
-        cursor: "pointer",
-        display: 'inline-block',
-        position: 'relative',
-        '&::after': {
-            content: '""',
-            position: 'absolute',
-            left: 0,
-            right: 0,
-            bottom: -3,
-            height: 2,
-            backgroundColor: theme.palette.primary.main,
-        },
-    },
-    calBtn: {
-        [theme.breakpoints.only("xs")]: {
-            justifyContent: "space-between"
-        }
     }
 }))
