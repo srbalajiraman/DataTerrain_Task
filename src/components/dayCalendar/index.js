@@ -1,7 +1,5 @@
-import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import {
     Box,
-    Divider,
     Grid,
     Paper,
     Stack,
@@ -14,6 +12,7 @@ import {
 } from "@mui/material";
 import { addHours, format } from 'date-fns';
 import React from 'react';
+import { MeetingList } from '../meetingList';
 import { dayCalendarstyle } from './style';
 
 export const DayCalendar = ({
@@ -41,6 +40,15 @@ export const DayCalendar = ({
             data: []
         })
     }
+
+    const handleClickMeeting = (meet) => {
+        setSelectedEvent({
+            ...selectedEvent,
+            meeting: meet
+        })
+        detailModalOpen()
+    }
+
     return (
         <>
             <TableContainer component={Paper} className={classes.table_container} style={{ maxWidth: '100%', overflowX: 'auto', marginTop: "16px", position: "relative" }}>
@@ -109,43 +117,11 @@ export const DayCalendar = ({
                                                                 >
                                                                     {
                                                                         selectedEvent?.index === i &&
-                                                                        <Box className={classes.meetingBox}>
-                                                                            <Stack direction={"row"} alignItems={"center"} justifyContent={"space-between"} p={"8px 16px"}>
-                                                                                <Typography className={classes.headTitle}>Meetings</Typography>
-                                                                                <Box className={classes.closeBtn} onClick={() => handleCloseMeeting()}><CloseRoundedIcon sx={{ color: "#fff", fontSize: "20px" }} /></Box>
-                                                                            </Stack>
-                                                                            <Divider></Divider>
-                                                                            <Box className={classes.meetingContent}>
-                                                                                {
-                                                                                    selectedEvent?.data?.map((e, i, len) => {
-                                                                                        return (
-                                                                                            <>
-                                                                                                <Stack spacing={1} p={2} onClick={detailModalOpen}>
-                                                                                                    <Typography className={classes.meetTitle}>{e?.job_id?.jobRequest_Title}</Typography>
-                                                                                                    <Stack
-                                                                                                        direction="row"
-                                                                                                        divider={<Divider orientation="vertical" flexItem />}
-                                                                                                        spacing={2}
-                                                                                                    >
-                                                                                                        <Typography className={classes.headSubTitle}>{e?.desc}</Typography>
-                                                                                                        <Typography className={classes.headSubTitle}>Interviewer: {e?.user_det?.handled_by?.firstName}</Typography>
-                                                                                                    </Stack>
-                                                                                                    <Stack
-                                                                                                        direction="row"
-                                                                                                        divider={<Divider orientation="vertical" flexItem />}
-                                                                                                        spacing={2}
-                                                                                                    >
-                                                                                                        <Typography className={classes.headSubTitle}>Date: {format(e?.start, "dd MMM yyyy")}</Typography>
-                                                                                                        <Typography className={classes.headSubTitle}>Time: {format(e?.start, "hh a")} - {format(addHours(e?.end, 1), "hh a")}</Typography>
-                                                                                                    </Stack>
-                                                                                                </Stack>
-                                                                                                {len?.length - 1 !== i && <Divider></Divider>}
-                                                                                            </>
-                                                                                        )
-                                                                                    })
-                                                                                }
-                                                                            </Box>
-                                                                        </Box>
+                                                                        <MeetingList
+                                                                            selectedEvent={selectedEvent}
+                                                                            handleCloseMeeting={handleCloseMeeting}
+                                                                            handleClickMeeting={handleClickMeeting}
+                                                                        />
                                                                     }
                                                                 </Box>
                                                             }

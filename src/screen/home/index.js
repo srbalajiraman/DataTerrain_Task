@@ -18,7 +18,7 @@ const Home = () => {
     const modalRef = React.useRef(null);
     const [isModalOpen, setModalOpen] = React.useState(false);
 
-    const [weekdates, setWeekdates] = React.useState({ startDate: new Date("2024-08-29"), endDate: addDays(new Date("2024-08-29"), 6) })
+    const [weekdates, setWeekdates] = React.useState({ startDate: new Date("2024-08-26"), endDate: addDays(new Date("2024-08-26"), 6) })
     const [dates, setDates] = React.useState([])
     const [data, setData] = React.useState([])
     const [detailData, setDetailData] = React.useState({})
@@ -280,6 +280,15 @@ const Home = () => {
 
     const handleChangeCalType = (type) => {
         setCalType(type)
+        if (type === "Week") {
+            const start = new Date("2024-08-26")
+            const end = addDays(new Date("2024-08-26"), 6)
+            setWeekdates({ startDate: start, endDate: end })
+            getdateRange(start, end)
+        }
+        if (type === "Day") {
+            setWeekdates({ startDate: new Date("2024-08-29"), endDate: new Date("2024-08-29") })
+        }
         getData(type)
     }
 
@@ -374,7 +383,7 @@ const Home = () => {
 
                     {
                         calType === "Month" &&
-                        <Box sx={{overflow: "auto"}}>
+                        <Box sx={{ overflow: "auto" }}>
                             <MonthCalendar
                                 dates={monthData?.dates}
                                 month={monthData?.month}
